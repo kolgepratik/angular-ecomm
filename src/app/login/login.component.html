@@ -1,0 +1,10 @@
+<div *ngIf="authService.user$ | async as loggedInUser; else showLogin">
+  <h1>Welcome {{ loggedInUser.displayName }}!</h1>
+  <button class="btn btn-primary" 
+    (click)="logout()">Logout</button>
+</div>
+
+<ng-template #showLogin>
+  <button class="btn btn-primary"
+    (click)="login()">Login with Google</button>
+</ng-template>

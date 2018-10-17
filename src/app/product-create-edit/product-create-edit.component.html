@@ -1,0 +1,65 @@
+
+<h3
+  *ngIf="product$ | async as product; else showNewProduct">
+  Manage Product: {{ product.key }}
+</h3>
+
+<ng-template #showNewProduct>
+  <h3>New Product</h3>
+</ng-template>
+
+<hr/>
+
+<div class="container">
+  <div class="row">
+    
+    <!-- Product Form. -->
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="save (form)">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input formControlName="title" type="text" class="form-control" name="title">
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <input formControlName="category" type="text" class="form-control" name="category" [value]="product?.category">
+              </div>
+              <div class="form-group">
+                <label for="price">Price</label>
+                <input formControlName="price" type="text" class="form-control" name="price" [value]="product?.price">
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card" *ngIf="(product$ | async) || {}; let product">
+            <img class="card-img-top" [src]="product?.imageUrl" alt="Product Image">
+            <div class="card-body">
+              <h5 class="card-title">{{ product?.title }}</h5>
+              <p class="card-text">
+                Category: {{ product?.category }}
+                <br/>
+                Price: {{ product?.price }}
+              </p>
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12">
+        <hr/>
+        <button class="btn btn-primary btn-sm">Save</button>
+        &nbsp;
+        <button class="btn btn-danger btn-sm">Delete</button>
+        <hr/>
+        <p>{{ form.value | json }}</p>
+      </div>
+    </div>
+</div>
+<hr/>

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~datatables.net-dt/css/jquery.dataTables.css';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+body {
+    padding: 10px;
+}
+
+nav.kp-main-nav {
+    border-radius: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+nav.kp-nav-lightslategray {
+    background-color: lightslategray;
+}
+
+.kp-align-vertical-bottom {
+    vertical-align: bottom;
+}

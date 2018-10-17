@@ -1,0 +1,50 @@
+<!-- Bootstrap Navbar. -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light kp-main-nav" [ngClass]="bgClass">
+  
+  <!-- This is for toggling the Navbar. -->
+  <!--
+  <button 
+    type="button" 
+    class="navbar-toggler" data-toggle="collapse" 
+    data-target="#app-navbar" aria-controls="app-navbar" 
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> 
+  -->
+
+  <!-- Navigation links. -->
+  <!-- 
+  <div class="collapse navbar-collapse" id="app-navbar">
+  -->
+    <a class="navbar-brand" routerLink="/"><mat-icon class="kp-align-vertical-bottom">shop</mat-icon>&nbsp;OnlineStore</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
+      </li>
+
+      <!-- This is using the NgBootstrap:NgDropdown. -->
+      <li class="nav-item dropdown kp-cursor-pointer"
+        *ngIf="authService.user$ | async as loggedInUser; else showLogin">
+        <div ngbDropdown class="d-inline-block">
+          <a ngbDropdownToggle class="nav-link" href="javascript: void(0)" id="dropdownBasic1">{{ loggedInUser ? loggedInUser.displayName : 'Welcome' }}</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" routerLink="/user/order">My Orders</button>
+
+            <ng-container *ngIf="authService.appUser$ | async as appUser">
+              <button *ngIf="appUser.admin" class="dropdown-item" routerLink="/admin/order">Manage Orders</button>
+              <button *ngIf="appUser.admin" class="dropdown-item" routerLink="/admin/product">Manage Products</button>
+            </ng-container>
+
+            <button class="dropdown-item" routerLink="/logout">Logout</button>
+          </div>
+        </div>
+      </li>
+
+      <ng-template #showLogin>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login with Google</a>
+          </li>
+      </ng-template>
+    </ul>
+  <!-- </div> -->
+</nav>
