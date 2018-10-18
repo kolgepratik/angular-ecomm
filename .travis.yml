@@ -1,4 +1,9 @@
-language: node
+language: node_js
+node_js:
+  - "iojs"
+  - "8"
+before_script:
+  - npm install -g firebase-tools
 deploy:
   provider: firebase
   token:
