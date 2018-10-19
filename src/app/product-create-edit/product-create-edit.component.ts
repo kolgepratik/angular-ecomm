@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ProductCreateEditComponent implements OnInit {
 
-  public productId: string;
+  public productKey: string;
   public product: Product;
   public product$: Observable<Product>;
 
@@ -22,44 +22,47 @@ export class ProductCreateEditComponent implements OnInit {
     this.form = this.formBuilder.group ({
       title: this.formBuilder.control ('', [Validators.required]),
       price: this.formBuilder.control ('', [Validators.pattern ('\d*')]),
-      category: this.formBuilder.control ('', [Validators.required])
+      category: this.formBuilder.control ('', [Validators.required]),
+      imageUrl: this.formBuilder.control ('', [Validators.required])
     });
 
-    this.productId = this.route.snapshot.paramMap.get ('id');
+    this.productKey = this.route.snapshot.paramMap.get ('key');
 
-    console.log (`constructor this.productId: ${this.productId}`);
+    console.log (`constructor this.productKey: ${this.productKey}`);
   }
 
   ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get ('id');
+    this.productKey = this.route.snapshot.paramMap.get ('key');
 
-    console.log (`this.productId: ${this.productId}`);
+    console.log (`this.productKey: ${this.productKey}`);
     
-    if (this.productId) {
-      this.product$ = this.productService.get$ (this.productId);
+    if (this.productKey) {
+      this.product$ = this.productService.get$ (this.productKey);
 
-      let p$ = this.productService.get$ (this.productId).subscribe ((p: Product) => {
-        this.form.setValue ({title: p.title, price: p.price, category: p.category}); 
+      let p$ = this.productService.get$ (this.productKey).subscribe ((p: Product) => {
+        this.form.setValue ({title: p.title, price: p.price, category: p.category, imageUrl: p.imageUrl}); 
 
-        p$.unsubscribe();
+        //p$.unsubscribe();
       });
     } 
   }
 
-  save (form) {
-    console.dir (form.value);
+  saveProduct () {
+    console.dir (this.form.value);
 
     let product: Product = {
-      title: form.value.name,
-      price: form.value.cost,
-      category: 'fruits'
+      title: this.form.value.title,
+      price: this.form.value.price,
+      category: this.form.value.category,
+      imageUrl: this.form.value.imageUrl
     };
 
-    if (this.productId) {
-      // Update existing Product.
-      product.key = this.product.key;
+    console.dir (this.productKey);
+    console.dir (product);
 
-      this.productService.update (product).then (() => {
+    if (this.productKey) {
+      // Update existing Product.
+      this.productService.update (this.productKey, product).then (() => {
         console.log ('Product updated');
       });
     } else {

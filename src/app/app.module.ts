@@ -26,6 +26,7 @@ import { DataTablesModule } from "angular-datatables";
 import { ProductService } from './services/product.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductCreateEditComponent } from './product-create-edit/product-create-edit.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
 
 /*
 const appRoutes: Routes = [
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
     { path: 'product', component: ProductComponent },
     { path: 'order', component: ProductComponent },
     { path: 'product/new', component: ProductCreateEditComponent },
-    { path: 'product/manage/:id', component: ProductCreateEditComponent }
+    { path: 'product/manage/:key', component: ProductCreateEditComponent }
   ] },
   { path: 'access-denied', component: RouterNotFoundComponent },
   { path: '**', component: RouterNotFoundComponent }
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     LoginComponent,
     LogoutComponent,
     ProductComponent,
-    ProductCreateEditComponent
+    ProductCreateEditComponent,
+    PageHeaderComponent
   ],
   imports: [
     BrowserModule,

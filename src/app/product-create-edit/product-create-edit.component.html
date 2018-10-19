@@ -1,11 +1,17 @@
 
-<h3
-  *ngIf="product$ | async as product; else showNewProduct">
-  Manage Product: {{ product.key }}
-</h3>
+<page-header 
+  *ngIf="product$ | async as product; else showNewProduct"
+  size="large" text-align="center">
+  Manage Product: {{ product.title }}
+</page-header>
+
+
 
 <ng-template #showNewProduct>
-  <h3>New Product</h3>
+    <page-header 
+      size="large" text-align="center">
+      New Product
+    </page-header>
 </ng-template>
 
 <hr/>
@@ -18,31 +24,35 @@
       <div class="card-deck">
         <div class="card">
           <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="save (form)">
+            <form [formGroup]="form">
               <div class="form-group">
                 <label for="title">Title</label>
                 <input formControlName="title" type="text" class="form-control" name="title">
               </div>
               <div class="form-group">
                 <label for="category">Category</label>
-                <input formControlName="category" type="text" class="form-control" name="category" [value]="product?.category">
+                <input formControlName="category" type="text" class="form-control" name="category">
               </div>
               <div class="form-group">
                 <label for="price">Price</label>
-                <input formControlName="price" type="text" class="form-control" name="price" [value]="product?.price">
+                <input formControlName="price" type="text" class="form-control" name="price">
+              </div>
+              <div class="form-group">
+                <label for="imageUrl">ImageUrl</label>
+                <input formControlName="imageUrl" type="text" class="form-control" name="imageUrl">
               </div>
             </form>
           </div>
         </div>
 
-        <div class="card" *ngIf="(product$ | async) || {}; let product">
-            <img class="card-img-top" [src]="product?.imageUrl" alt="Product Image">
+        <div class="card">
+            <img class="card-img-top" [src]="form.value.imageUrl" alt="Product Image">
             <div class="card-body">
-              <h5 class="card-title">{{ product?.title }}</h5>
+              <h5 class="card-title">{{ form.value.title }}</h5>
               <p class="card-text">
-                Category: {{ product?.category }}
+                Category: {{ form.value.category }}
                 <br/>
-                Price: {{ product?.price }}
+                Price: {{ form.value.price }}
               </p>
             </div>
           </div>
@@ -54,11 +64,10 @@
   <div class="row">
       <div class="col-12">
         <hr/>
-        <button class="btn btn-primary btn-sm">Save</button>
-        &nbsp;
-        <button class="btn btn-danger btn-sm">Delete</button>
+        <button 
+          class="btn btn-primary btn-sm"
+          (click)="saveProduct ()">Save</button>        
         <hr/>
-        <p>{{ form.value | json }}</p>
       </div>
     </div>
 </div>

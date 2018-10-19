@@ -36,7 +36,7 @@ export class ProductService {
     return this.angularFireDatabase.list<Product> ('/product/').push (product);
   }
 
-  update (product): Promise<void> {
-    return this.angularFireDatabase.object<Product> ('/product/' + product.key).set (product);
+  update (key, product): Promise<void> {
+    return this.angularFireDatabase.object<Product> ('/product/' + key).update (product);
   }
 }

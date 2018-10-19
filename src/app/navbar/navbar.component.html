@@ -17,34 +17,45 @@
   <div class="collapse navbar-collapse" id="app-navbar">
   -->
     <a class="navbar-brand" routerLink="/"><mat-icon class="kp-align-vertical-bottom">shop</mat-icon>&nbsp;OnlineStore</a>
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
-      </li>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
+        </li>
 
-      <!-- This is using the NgBootstrap:NgDropdown. -->
-      <li class="nav-item dropdown kp-cursor-pointer"
-        *ngIf="authService.user$ | async as loggedInUser; else showLogin">
-        <div ngbDropdown class="d-inline-block">
-          <a ngbDropdownToggle class="nav-link" href="javascript: void(0)" id="dropdownBasic1">{{ loggedInUser ? loggedInUser.displayName : 'Welcome' }}</a>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item" routerLink="/user/order">My Orders</button>
-
-            <ng-container *ngIf="authService.appUser$ | async as appUser">
-              <button *ngIf="appUser.admin" class="dropdown-item" routerLink="/admin/order">Manage Orders</button>
-              <button *ngIf="appUser.admin" class="dropdown-item" routerLink="/admin/product">Manage Products</button>
-            </ng-container>
-
-            <button class="dropdown-item" routerLink="/logout">Logout</button>
-          </div>
-        </div>
-      </li>
-
-      <ng-template #showLogin>
+        <ng-container *ngIf="authService.user$ | async as loggedInUser; else showLogin">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login">Login with Google</a>
+            <a class="nav-link">{{ 'Welcome ' + loggedInUser.displayName }}</a>
           </li>
-      </ng-template>
-    </ul>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user/order">My Orders</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/order">Manage Orders</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/product">Manage Products</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/logout">Logout</a>
+          </li>
+        </ng-container>
+
+        <ng-template #showLogin>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
   <!-- </div> -->
 </nav>

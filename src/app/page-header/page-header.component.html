@@ -1,0 +1,32 @@
+ <div class="container">
+  <div class="row">
+    <div class="col-12" [class.text-center]="textAlign === 'center'" [ngSwitch]="size">
+      <h6 
+        *ngSwitchCase="'x-small'">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </h6>
+
+      <h5 
+        *ngSwitchCase="'small'">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </h5>
+    
+      <h4 
+        *ngSwitchCase="'medium'">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </h4>
+
+      <h3 
+        *ngSwitchCase="'large'">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </h3>
+
+      <h2 
+        *ngSwitchCase="'x-large'">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentTemplate><ng-content></ng-content></ng-template>
